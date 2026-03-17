@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Tamil Poets — Verses from the Tradition</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+ 
+<style>
+:root {
+  --ink: #1a1208;
+  --paper: #f5efe4;
+  --aged: #d4c4a0;
+  --red: #9e1515;
+  --muted: #7a6a50;
+  --pale: #ece4d2;
+  --line: rgba(180,160,120,0.18);
+}
+ 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #e8dece;
+    --paper: #1a1208;
+    --aged: #4a3c28;
+    --red: #c0392b;
+    --muted: #a08c6e;
+    --pale: #261d10;
+    --line: rgba(180,160,120,0.08);
+  }
+}
+ 
+* { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'EB Garamond', Georgia, serif;
+  min-height: 100vh;
+  padding: 2rem 1rem 4rem;
+  background-image: repeating-linear-gradient(
+    0deg, transparent, transparent 31px,
+    var(--line) 31px, var(--line) 32px
+  );
+}
+ 
+.container { max-width: 620px; margin: 0 auto; }
+ 
+.header {
+  padding-bottom: 1.25rem;
+  margin-bottom: 1.75rem;
+  border-bottom: 1px solid var(--aged);
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+ 
+.header-title {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+ 
+.header-tamil {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.1rem;
+  color: var(--red);
+  font-style: italic;
+}
+ 
+.controls-section { margin-bottom: 1.5rem; }
+ 
+.control-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.6rem;
+  display: block;
+}
+ 
+.pills { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1rem; }
+ 
+.pill {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  padding: 5px 12px;
+  border: 1px solid var(--aged);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+ 
+.pill:hover { border-color: var(--ink); color: var(--ink); }
+.pill.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+ 
+.themes { display: flex; flex-wrap: wrap; gap: 5px; }
+ 
+.theme {
+  font-family: 'EB Garamond', serif;
+  font-size: 0.85rem;
+  font-style: italic;
+  padding: 3px 10px;
+  border: 0.5px solid var(--aged);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+ 
+.theme:hover { color: var(--ink); border-color: var(--ink); }
+.theme.active { border-color: var(--red); color: var(--red); }
+ 
+.quote-card {
+  border: 1px solid var(--aged);
+  padding: 2rem 1.75rem 1.5rem;
+  margin-bottom: 1rem;
+  min-height: 300px;
+}
+ 
+.skeletons { display: flex; flex-direction: column; gap: 10px; }
+.skel {
+  height: 14px;
+  background: var(--pale);
+  border-radius: 2px;
+  animation: pulse 1.4s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+ 
+.theme-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1.25rem;
+  display: block;
+}
+ 
+.verse-tamil {
+  font-size: 1.3rem;
+  line-height: 1.8;
+  font-style: italic;
+  color: var(--ink);
+  margin-bottom: 0.75rem;
+}
+ 
+.verse-translation {
+  font-size: 1rem;
+  line-height: 1.85;
+  font-style: italic;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+}
+ 
+.rule { height: 1px; background: var(--aged); margin: 1.25rem 0; }
+ 
+.poet-line { display: flex; align-items: baseline; gap: 10px; margin-bottom: 0.9rem; }
+ 
+.poet-name {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: 0.05em;
+}
+ 
+.poet-era {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--muted);
+}
+ 
+.context-text {
+  font-size: 0.95rem;
+  line-height: 1.85;
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+ 
+.relevance-wrap {
+  border-left: 2px solid var(--aged);
+  padding: 0.6rem 0 0.6rem 1rem;
+  margin-top: 0.75rem;
+}
+ 
+.relevance-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.5rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+  display: block;
+}
+ 
+.relevance-text {
+  font-size: 0.9rem;
+  line-height: 1.75;
+  color: var(--muted);
+  font-style: italic;
+}
+ 
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 1rem;
+  border-top: 1px solid var(--aged);
+}
+ 
+.source-text {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.55rem;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+  max-width: 60%;
+  line-height: 1.5;
+}
+ 
+.next-btn {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  padding: 7px 16px;
+  border: 1px solid var(--aged);
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  transition: all 0.15s;
+  text-transform: uppercase;
+}
+ 
+.next-btn:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.next-btn:disabled { opacity: 0.35; cursor: default; }
+ 
+.error-msg {
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--muted);
+  line-height: 1.8;
+  padding: 1rem 0;
+}
+ 
+.watermark {
+  text-align: center;
+  margin-top: 2rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.5rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--aged);
+}
+</style>
+</head>
+<body>
+<div class="container">
+ 
+  <div class="header">
+    <span class="header-title">Tamil Poets · Verses from the Tradition</span>
+    <span class="header-tamil">தமிழ்</span>
+  </div>
+ 
+  <div class="controls-section">
+    <span class="control-label">Poet</span>
+    <div class="pills">
+      <button class="pill active" data-poet="any">Any</button>
+      <button class="pill" data-poet="Subramania Bharathi">Bharathi</button>
+      <button class="pill" data-poet="Bharathidasan">Bharathidasan</button>
+      <button class="pill" data-poet="Thiruvalluvar">Thiruvalluvar</button>
+      <button class="pill" data-poet="Kaniyan Pungundranar">Kaniyan</button>
+      <button class="pill" data-poet="Avvaiyar">Avvaiyar</button>
+    </div>
+ 
+    <span class="control-label">Theme</span>
+    <div class="themes">
+      <button class="theme active" data-theme="any">All themes</button>
+      <button class="theme" data-theme="equality and caste">Equality</button>
+      <button class="theme" data-theme="language and Tamil identity">Language</button>
+      <button class="theme" data-theme="resistance and freedom">Resistance</button>
+      <button class="theme" data-theme="ethics and justice">Ethics</button>
+      <button class="theme" data-theme="the self and inner life">Inner life</button>
+    </div>
+  </div>
+ 
+  <div class="quote-card">
+    <div id="loading" class="skeletons">
+      <div class="skel" style="width:80%"></div>
+      <div class="skel" style="width:65%"></div>
+      <div class="skel" style="width:50%; margin-bottom:10px"></div>
+      <div class="skel" style="width:35%; height:11px"></div>
+      <div class="skel" style="width:90%; height:11px; margin-top:14px"></div>
+      <div class="skel" style="width:75%; height:11px"></div>
+      <div class="skel" style="width:82%; height:11px"></div>
+    </div>
+    <div id="quote-content" style="display:none"></div>
+  </div>
+ 
+  <div class="card-footer">
+    <span class="source-text" id="source-line"></span>
+    <button class="next-btn" id="next-btn" onclick="fetchQuote()" disabled>Next verse →</button>
+  </div>
+ 
+  <div class="watermark">For Ashwath · Made with care</div>
+</div>
+ 
+<script>
+let selectedPoet = 'any';
+let selectedTheme = 'any';
+let isLoading = false;
+ 
+document.querySelectorAll('.pill').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.pill').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    selectedPoet = btn.dataset.poet;
+    fetchQuote();
+  });
+});
+ 
+document.querySelectorAll('.theme').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.theme').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    selectedTheme = btn.dataset.theme;
+    fetchQuote();
+  });
+});
+ 
+function showLoading() {
+  document.getElementById('loading').style.display = 'flex';
+  document.getElementById('quote-content').style.display = 'none';
+  document.getElementById('source-line').textContent = '';
+  document.getElementById('next-btn').disabled = true;
+}
+ 
+function showQuote(d) {
+  const c = document.getElementById('quote-content');
+  c.innerHTML = `
+    <span class="theme-label">${d.theme}</span>
+    <div class="verse-tamil">${d.tamil}</div>
+    <div class="verse-translation">${d.translation}</div>
+    <div class="rule"></div>
+    <div class="poet-line">
+      <span class="poet-name">${d.poet}</span>
+      <span class="poet-era">${d.era}</span>
+    </div>
+    <div class="context-text">${d.context}</div>
+    <div class="relevance-wrap">
+      <span class="relevance-label">Why this matters now</span>
+      <div class="relevance-text">${d.relevance}</div>
+    </div>
+  `;
+  document.getElementById('loading').style.display = 'none';
+  c.style.display = 'block';
+  document.getElementById('source-line').textContent = d.source;
+  document.getElementById('next-btn').disabled = false;
+}
+ 
+function showError(msg) {
+  const c = document.getElementById('quote-content');
+  c.innerHTML = `<div class="error-msg">${msg}</div>`;
+  document.getElementById('loading').style.display = 'none';
+  c.style.display = 'block';
+  document.getElementById('next-btn').disabled = false;
+}
+ 
+async function fetchQuote() {
+  if (isLoading) return;
+  isLoading = true;
+  showLoading();
+ 
+  const poetInstruction = selectedPoet === 'any'
+    ? 'Choose any classical or pre-independence Tamil poet — Subramania Bharathi, Bharathidasan, Thiruvalluvar, Kaniyan Pungundranar, Avvaiyar, Kambar, Nakkirar, or other Sangam poets.'
+    : `The poet must be ${selectedPoet}.`;
+ 
+  const themeInstruction = selectedTheme === 'any'
+    ? 'Choose any theme from the Tamil literary tradition.'
+    : `The quote should relate to the theme of: ${selectedTheme}.`;
+ 
+  const prompt = `You are a scholar of classical and pre-independence Tamil literature with deep knowledge of Sangam poetry, the bhakti tradition, and the pre-independence revolutionary poets.
+ 
+${poetInstruction}
+${themeInstruction}
+ 
+Return ONLY a valid JSON object — no markdown, no backticks, no preamble — with exactly these fields:
+{
+  "tamil": "the original Tamil verse in Tamil script",
+  "translation": "an accurate, literary English translation that preserves the feeling of the original",
+  "poet": "full name of the poet",
+  "era": "e.g. 'Sangam era, circa 300 BCE' or '1882–1921'",
+  "theme": "2–4 word theme label",
+  "context": "2–3 sentences: the work it is from, what it meant historically and socially, what the poet was arguing for or against — be specific and honest, not hagiographic",
+  "relevance": "1–2 sentences on why this verse speaks to something still unresolved — caste, language, egalitarianism, the dignity of ordinary people, resistance",
+  "source": "work title and approximate date, e.g. 'Purananuru, verse 192 · circa 300 BCE'"
+}
+ 
+Use a real, specific verse. If you are not certain of the exact Tamil script, note this briefly in the translation field. Be precise and honest.`;
+ 
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+ 
+    if (!res.ok) throw new Error('API error');
+    const data = await res.json();
+    const raw = data.content.map(b => b.text || '').join('');
+    const clean = raw.replace(/```json|```/g, '').trim();
+    const parsed = JSON.parse(clean);
+    showQuote(parsed);
+  } catch(e) {
+    showError('Could not reach the poets right now. Try again — they are patient.');
+  } finally {
+    isLoading = false;
+  }
+}
+ 
+fetchQuote();
+</script>
+</body>
+</html>
